@@ -2,8 +2,24 @@
 <html>
     <head><title>Stock Game!</title></head>
     <body>
+        <p>Date: {{ date.isoformat() }} <button form="trade" formaction="/advance">Advance day</button></p>
+        {% if stocks %}
+            <p>
+                Stocks owned:
+                <ol>
+                {% for s in stocks %}
+                    <li>
+                        Symbol: {{ s.symbol }},
+                        Quantity: {{ s.quantity }},
+                        Purchased: {{ s.purch_date.isoformat() }},
+                        Earnings to date: {{ s.earnings }}
+                    </li>
+                {% endfor %}
+                </ol>
+            </p>
+        {% endif %}
+        <hr>
         <p>
-            DATE <!-- I need the date! -->
             <form id="stocks" action="/stocks">
                 <label for="symbol">Symbol</label>
                 <input type="text" name="symbol"> <br/> <br/> <!--CSS this-->
