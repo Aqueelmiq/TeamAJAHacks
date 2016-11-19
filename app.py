@@ -53,7 +53,7 @@ def trade():
     quantity = int(request.args['quantity'])
     q = fetch_quotes(symbol, date, end)
     if q:
-        s = Stock(symbol, quantity, date, float(q['Open']))
+        s = Stock(symbol, quantity, date, q)
         stocks.append(s)
     return render_template('stocks.html', date=date, stocks=stocks)
 
@@ -64,7 +64,10 @@ def is_trading_day(date):
 
 def fetch_quotes(symbol, start_date, end_date):
     stock = pdr.DataReader(symbol, 'yahoo', start_date, end_date)
-    return stock.ix[start_date.isoformat()]
+    #print(stock)
+    print(start_date)
+    print(stock.ix['2010-01-04']['Open'])
+    return float(stock.ix['2010-01-04']['Open'])
 
 
 
