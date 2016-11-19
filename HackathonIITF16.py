@@ -7,9 +7,14 @@ import datetime
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route("/")
+def index():
+    return render_template('page.html')
+
+
+@app.route('/hello')
 def hello_world():
-    name = request.args['Enter your name: ']
+    name = request.args['name']
     return 'Hello Loser!'
 
 
