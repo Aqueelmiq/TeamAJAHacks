@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
-    <head><title>Simple Paper Trader</title></head>
+    <head><title>Stock Game!</title></head>
+    <body>
         <p>
-            Trade:
-            <form id="hello" action="/hello">
-                <label for="name">Enter your name:</label>
-                <input type="text" name="name">
-                <input type="Submit" value="Submit">
+            DATE
+            <form id="stocks" action="/stocks">
+                <label for="symbol">Symbol</label>
+                <input type="text" name="symbol"> <br/>
+                <label for="amount">#Stocks:</label>
+                <input type="text" name="amount"> <br/>
+                <input type="radio" name="gender" value="watchlist" checked> Watchlist
+                <input type="radio" name="gender" value="buy"> Buy
+                <input type="radio" name="gender" value="sell"> Sell
+                <input type="Submit" value="Simulate">
+                <input type="Submit" value="Go">
             </form>
         </p>
     </body>
