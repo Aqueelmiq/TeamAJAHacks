@@ -11,8 +11,9 @@ app = Flask(__name__)
 def index():
     return render_template('page.html')
 
+stocks
 
-@app.route('/hello')
+@app.route('/stocks')
 def hello_world():
     name = request.args['name']
     return 'Hello Loser!'
