@@ -9,12 +9,19 @@ app = Flask(__name__)
 
 #Main Stocks library
 stocks = []
-watchlist = ['AAPL', 'GOOG', 'MSFT']
+watchlist = []
 date = datetime.date(2000, 1, 1)
+end = datetime.date(2017, 1, 1)
 
-aapl = pdr.DataReader("AAPL", 'yahoo', start, end)
-print(aapl.ix['2007-06-29'])
-
+class Stock:
+    def __init__(self, symbol, quantity, purch_date, init_price):
+        self.symbol = symbol
+        self.quantity = quantity
+        self.purch_date = purch_date
+        self.init_price = init_price
+        self.earnings = 0
+        self.last_price = init_price
+        self.last_earning = 0
 
 @app.route("/")
 def index():
@@ -40,11 +47,11 @@ def update_stocks():
             s.last_price = float(q['Close'])
 
 
-@app.route('/trade')
+@app.route('/stocks')
 def trade():
     symbol = request.args['symbol']
     quantity = int(request.args['quantity'])
-    q = fetch_quotes(symbol, date, date)
+    q = fetch_quotes(symbol, date, end)
     if q:
         s = Stock(symbol, quantity, date, float(q['Open']))
         stocks.append(s)
@@ -52,18 +59,13 @@ def trade():
 
 
 def is_trading_day(date):
-    return fetch_quotes('YHOO', date, date) is not None
+    return fetch_quotes('YHOO', date, end) is not None
 
 
 def fetch_quotes(symbol, start_date, end_date):
-    try:
-        stock = pdr.DataReader(symbol, 'yahoo', start_date, end_date)
-        if stock:
-            return stock['quote']
-        else:
-            return None
-    except urllib.error.HTTPError:
-        return None
+    stock = pdr.DataReader(symbol, 'yahoo', start_date, end_date)
+    return stock.ix[start_date.isoformat()]
+
 
 
 if __name__ == '__main__':
