@@ -52,7 +52,7 @@
   <tbody>
     <tr>
       <th scope="col"><div>
-                <h2> GAME STATUS:  {{ status }} </h2>
+                <h2> {{ status }} </h2>
             </div></th>
     </tr>
   </tbody>
@@ -154,7 +154,7 @@
             if(game > 0) {
                 $.get('/startgame', function() {
                     game--;
-                    setTimeout(recur(game), 3000);
+                    setTimeout(recur(game), 10000);
                 });
             }
         }

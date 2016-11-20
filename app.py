@@ -22,6 +22,7 @@ end = datetime.date(2016, 11, 11)
 money = 100000
 game_status = False
 sleep_time = 60
+status ="Get Started"
 
 class Stock:
     def __init__(self, symbol, quantity, purch_date, init_price):
@@ -150,7 +151,8 @@ def game():
         target = random.randrange(int(money * 1.05), int(money * 1.15))
         sleep_time = random.randrange(100, 160)
 
-    status = " Great Brah!"
+    global status
+    status = "Get Started By Clicking The Button"
 
     return render_template('game.html', date = date, end=end, stock = stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money, target=target, status = status)
 
@@ -158,6 +160,9 @@ def game():
 def yolo():
     i = int(random.randrange(1, 4))
     rand_advance(i)
+    global status
+    global date
+    return render_template('game.html', date = date, end=end, stock = stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money, target=target, status = status)
 
 @app.route("/stopgame")
 def stop_game():
@@ -218,9 +223,9 @@ def advance():
     return render_template('page.html', date=date, end=end, stocks=stocks, watchlist=watchlist, stock_set=stock_set.values(), money = money)
 
 def rand_advance(case):
+    print(case)
     global  date
     next_date = date
-    time_amount = request.args['advance']
     if case == 1:
         next_date += datetime.timedelta(days= 1)
     elif case == 2:
