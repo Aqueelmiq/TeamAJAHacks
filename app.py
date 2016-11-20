@@ -41,8 +41,19 @@ class Stock_base:
     def __hash__(self):
         return self.symbol.__hash__()
 
-@app.route("/")
+@app.route("/") #asking the user for dates
 def index():
+    yesterday = (datetime.date.today() - datetime.timedelta(days=1))
+    return render_template('index.html', today=yesterday.isoformat()) #needs the day before today
+
+
+@app.route("/start")
+def start():
+    global date, end
+    s_date = request.args['start_date'].split("-")
+    e_date = request.args['end_date'].split("-")
+    date = datetime.date(int(s_date[0]),int(s_date[1]),int(s_date[2]))
+    end = datetime.date(int(e_date[0]),int(e_date[1]),int(e_date[2]))
     return render_template('page.html', date = date, stock = stocks, watchlist= watchlist)
 
 
