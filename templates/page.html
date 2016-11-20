@@ -6,7 +6,7 @@
 </head>
     <body>
         <div>
-            <h2> Account Balance: {{ money }}$ </h2>
+            <h2> Account Balance: {{ "${:.2f}".format(money) }} </h2>
         </div>
         <div>
             {% if watchlist %}
@@ -15,8 +15,8 @@
                 {% for s in watchlist %}
                     <li>
                         Symbol: {{ s.symbol }},
-                        Price: {{ s.last_price }},
-                        Change: {{ s.change }}
+                        Price: {{ "${:.2f}".format(s.last_price) }},
+                        Change: {{ "${:.2f}".format(s.change) }}
                         <ul>
                             <img src="{{ s.img }}.png" height="150px" width="175px"/>
                         </ul>
@@ -47,8 +47,8 @@
                     <li>
                         Symbol: {{ s.symbol }},
                         Quantity: {{ s.quantity }},
-                        Price: {{ s.last_price }},
-                        Earnings to date: {{ s.earnings }}
+                        Price: {{ "${:.2f}".format(s.last_price) }},
+                        Earnings to date: {{ "${:.2f}".format(s.earnings) }}
                     </li>
                 {% endfor %}
                 </ol>
@@ -63,8 +63,8 @@
                     <li>
                         Symbol: {{ s.symbol }},
                         Quantity: {{ s.quantity }},
-                        Price: {{ s.init_price }},
-                        Purchase Date: {{ s.purch_date }}
+                        Price: {{ "${:.2f}".format(s.init_price) }},
+                        Purchase Date: {{ "${:.2f}".format(s.purch_date) }}
                     </li>
                 {% endfor %}
                 </ol>
