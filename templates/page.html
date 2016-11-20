@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Genus</title>
+    <title>Stock Game!</title>
 </head>
     <body>
         <div>
@@ -17,7 +17,9 @@
                         Symbol: {{ s.symbol }},
                         Price: {{ s.last_price }},
                         Change: {{ s.change }},
-                        Graph: <img src="{{ s.img }}.png" height="150px" width="175px"/>
+                        <ul>
+                            <img src="{{ s.img }}.png" height="250px" width="305px"/>
+                        </ul>
                     </li>
                 {% endfor %}
                 </ol>

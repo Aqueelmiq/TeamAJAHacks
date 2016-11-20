@@ -2,6 +2,8 @@ from flask import Flask, request, render_template
 import plotly.plotly as py
 from plotly.tools import FigureFactory as FF
 from plotly.graph_objs import *
+import random
+import time
 import datetime
 import pandas_datareader.data as pdr
 
@@ -18,6 +20,7 @@ stock_set = {}
 date = datetime.date(2000, 1, 3)
 end = datetime.date(2016, 11, 11)
 money = 100000
+game_status = False
 
 class Stock:
     def __init__(self, symbol, quantity, purch_date, init_price):
@@ -104,6 +107,7 @@ def trade():
                     stocks[i].quantity -= s.quantity
                     break
             else:
+                s.quantity = 0 - quantity
                 stocks.append(s)
 
     else: #not a valid symbol (or maybe not a valid date for that symbol)
@@ -111,6 +115,50 @@ def trade():
 
     return render_template('page.html', date=date, end=end, stocks=stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money)
 
+@app.route("/game")
+def game():
+    s_date = request.args['start_date'].split("-")
+    e_date = request.args['end_date'].split("-")
+    money = request.args['start']
+    diff = request.args['diff']
+    if diff == 'hard':
+        target = random.randrange(money*1.3, money*1.5)
+        sleep_time = random.randrange(45, 60)
+    elif diff == 'medium':
+        target = random.randrange(money * 1.15, money * 1.3)
+        sleep_time = random.randrange(60, 100)
+    else:
+        target = random.randrange(money * 1.05, money * 1.15)
+        sleep_time = random.randrange(100, 160)
+    global game_status
+
+    game_status = True
+    flag = True
+
+    while flag:
+        while game_status:
+            time.sleep(int(sleep_time))
+            i = int(random.randrange(1, 4))
+            rand_advance(i)
+            render_template('page.html', date=date, end=end, stock=stocks, watchlist=watchlist,
+                            stock_set=stock_set.values(), money=money)
+
+        if date >= e_date:
+            flag = False
+            if money > target:
+                status = "You Won by " + str(target - money) + " - Amazing!!"
+            else:
+                status = "You didnt cut it! Practice more. Use simulators"
+
+    return render_template('page.html', date = date, end=end, stock = stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money)
+
+
+@app.route("/game")
+def stop_game():
+    global game_status
+    game_status = False
+    return render_template('page.html', date=date, end=end, stock=stocks, watchlist=watchlist,
+                           stock_set=stock_set.values(), money=money)
 
 def is_trading_day(date):
     if len(get_quotes('YHOO', date, end)) != 0:
@@ -162,6 +210,24 @@ def advance():
         date += datetime.timedelta(days=1)
     earning()
     return render_template('page.html', date=date, end=end, stocks=stocks, watchlist=watchlist, stock_set=stock_set.values(), money = money)
+
+def rand_advance(case):
+    global  date
+    next_date = date
+    time_amount = request.args['advance']
+    if case == 1:
+        next_date += datetime.timedelta(days= 1)
+    elif case == 2:
+        next_date += datetime.timedelta(weeks= 1)
+    else:
+        next_date += datetime.timedelta(days= 30)
+
+    if next_date <= end:
+        date = next_date
+
+    while not is_trading_day(date):
+        date += datetime.timedelta(days=1)
+    earning()
 
 def earnings(stock):
     q = get_quotes(stock.symbol, date, end)
