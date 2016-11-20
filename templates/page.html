@@ -44,9 +44,9 @@
         <p>
             <form id="stocks" action="/stocks">
                 <label for="symbol">Symbol:</label>
-                <input type="text" name="symbol"> <br/> <br/> <!--CSS this-->
+                <input type="text" name="symbol" required> <br/> <br/> <!--CSS this-->
                 <label for="quantity">Number of Stocks:</label>
-                <input type="text" name="quantity"> <br/> <br/>
+                <input type="number" name="quantity" min="0"> <br/> <br/>
                 <input type="radio" name="action" value="watchlist" checked> Watchlist
                 <input type="radio" name="action" value="buy"> Buy
                 <input type="radio" name="action" value="sell"> Sell <br/> <br/>
