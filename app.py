@@ -33,10 +33,11 @@ def index():
 def trade():
     symbol = request.args['symbol']
     quantity = int(request.args['quantity'])
-    q = get_quotes(symbol, date, end)
-    if len(q) != 0:
-        s = Stock(symbol, quantity, date, float(q['Open']))
-        stocks.append(s)
+    if request.args['action'] == 'buy':
+        q = get_quotes(symbol, date, end)
+        if len(q) != 0:
+            s = Stock(symbol, quantity, date, float(q['Open']))
+            stocks.append(s)
     return render_template('page.html', date=date, stocks=stocks)
 
 
@@ -62,7 +63,6 @@ def next_day():
     date += datetime.timedelta(days= 1)
     while not is_trading_day(date):
         date += datetime.timedelta(days=1)
-    print(is_trading_day(date))
     return render_template('page.html', date=date, stocks=stocks)
 
 def refresh_stocks():
