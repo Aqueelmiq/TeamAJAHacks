@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="../static/stylemain.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../static/style.css"/>
+    <script src="https://use.typekit.net/hbg8vny.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <title>Genus</title>
+</head>
+    <body>
+
+        <div class="Nav">
+            <h1 id="header">WELCOME TO GENUS - THE GAME!</h1>
+            <h3 id ="tagline">The Strategic Stock Trading Game</h3>
+        </div>
+
+        <div class="content">
+			<table width="100%" border="0">
+  <tbody>
+    <tr>
+      <th scope="col"><div>
+                <h2> Account Balance: {{ "${:.2f}".format(money) }} </h2>
+            </div></th>
+      <th scope="col"><div>
+                <h2> Target Balance: {{ "${:.2f}".format(target) }} </h2>
+            </div></th>
+    </tr>
+  </tbody>
+</table>
+
+
+
+            <div>
+                {% if watchlist %}
+                    <h3>Watch List:</h3>
+                    <ol>
+                    <p>
+                    {% for s in watchlist %}
+                        <li style="display: inline-block">
+                            Symbol: {{ s.symbol }},
+                            Unit price: {{ "${:.2f}".format(s.last_price) }}
+                            <br/>
+                            <img src="{{ s.img }}.png" height="250px" width="305px"/>
+                        </li>
+                    {% endfor %}
+                    </ol>
+                    </p>
+                {% endif %}
+            </div>
+            <hr>
+
+        <div>
+            <h3>Date:</h3>
+            <p>{{ date.isoformat() }} {% if date >= end %} ALERT: THIS IS THE ENDING DATE {% endif %}</p>
+        </div>
+        <hr>
+        <div>
+            <h3>Stocks owned:</h3>
+            <p>
+            {% if stock_set %}
+                <ol>
+                {% for s in stock_set %}
+                    <li>
+                        Symbol: {{ s.symbol }},
+                        Quantity: {{ s.quantity }},
+                        Price: {{ "${:.2f}".format(s.last_price) }},
+                        Earnings to date: {{ "${:.2f}".format(s.earnings) }}
+                    </li>
+                {% endfor %}
+                </ol>
+            {% endif %}
+            </p>
+        </div>
+        <hr>
+        <div>
+
+            <h3>Transactions:</h3>
+            {% if stocks %}
+                <p>
+                <ol>
+                {% for s in stocks %}
+                    <li>
+                        Symbol: {{ s.symbol }},
+                        Quantity: {{ s.quantity }},
+                        Price: {{ "${:.2f}".format(s.init_price) }},
+                        Purchase Date: {{ s.purch_date }}
+                    </li>
+                {% endfor %}
+                </ol>
+                </p>
+            {% endif %}
+        </div>
+        <hr>
+        <div>
+            <h3>Control Panel:</h3>
+            <form id="stocks" action="/stocks">
+                <label for="symbol">Symbol:</label>
+                <input type="text" name="symbol" autofocus required>
+                <a href="http://eoddata.com/symbols.aspx"target="_blank"> Extensive list of all symbols</a>
+                <br/> <br/> <!--CSS this-->
+                <label for="quantity">Number of Stocks:</label>
+                <input type="number" name="quantity" min="0">
+                <br/> <br/>
+                <input type="radio" name="action" value="watchlist" checked> Watchlist
+                <input type="radio" name="action" value="buy"> Buy
+                <input type="radio" name="action" value="sell"> Sell
+                <br/> <br/>
+                <!--<input type="Submit" value="Simulate">-->
+                <input type="Submit" value="Go">
+            </form>
+        </div>
+
+        </div>
+
+        <div>
+            <form id="home" action="/">
+                <input type="Submit" value="Back to Home"/>
+            </form>
+        </div>
+
+    </body>
+</html>
