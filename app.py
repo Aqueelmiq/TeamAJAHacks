@@ -12,8 +12,10 @@ stocks = []
 watchlist = []
 stock_set = {}
 
+###DEFAULTS:
 date = datetime.date(2000, 1, 3)
 end = datetime.date(2017, 1, 1)
+money = 100000
 
 class Stock:
     def __init__(self, symbol, quantity, purch_date, init_price):
@@ -36,7 +38,7 @@ class Stock_base:
 
     def __eq__(self, other):
         if self.symbol == other.symbol:
-            return True;
+            return True
 
     def __hash__(self):
         return self.symbol.__hash__()
@@ -54,6 +56,7 @@ def start():
     e_date = request.args['end_date'].split("-")
     date = datetime.date(int(s_date[0]),int(s_date[1]),int(s_date[2]))
     end = datetime.date(int(e_date[0]),int(e_date[1]),int(e_date[2]))
+    money = int(request.args['money'])
     return render_template('page.html', date = date, stock = stocks, watchlist= watchlist, stock_set=stock_set.values())
 
 
