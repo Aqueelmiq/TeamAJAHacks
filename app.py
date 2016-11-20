@@ -44,7 +44,7 @@ class Stock_base:
 @app.route("/") #asking the user for dates
 def index():
     yesterday = (datetime.date.today() - datetime.timedelta(days=1))
-    return render_template('index.html', today=yesterday.isoformat()) #needs the day before today
+    return render_template('index.html', yesterday=yesterday.isoformat()) #needs the day before today
 
 
 @app.route("/start")
@@ -66,27 +66,28 @@ def trade():
     if is_symbol(symbol):
         s = Stock(symbol, quantity, date, float(q['Open']))
         sb = Stock_base(symbol, quantity, float(q['Open']))
-    if request.args['action'] == 'watchlist':
-        watchlist.append(s)
-    elif request.args['action'] == 'buy':
+        if request.args['action'] == 'watchlist':
+            watchlist.append(s)
+        elif request.args['action'] == 'buy':
 
-        if stock_set.get(symbol):
-            stock_set[symbol].quantity += quantity
-        else:
-            stock_set[symbol] = sb
+            if stock_set.get(symbol):
+                stock_set[symbol].quantity += quantity
+            else:
+                stock_set[symbol] = sb
 
-        for i in range(len(stocks)):
-            if stocks[i].symbol==s.symbol and stocks[i].purch_date==s.purch_date: #already there for that date
-                stocks[i].quantity += s.quantity
-                break
-        else:
-            stocks.append(s)
-    elif request.args['action'] == 'sell':
-        for i in range(len(stocks)):
-            if stocks[i].symbol == s.symbol:
-                stocks[i].quantity += s.quantity
+            for i in range(len(stocks)):
+                if stocks[i].symbol==s.symbol and stocks[i].purch_date==s.purch_date: #already there for that date
+                    stocks[i].quantity += s.quantity
+                    break
+            else:
+                stocks.append(s)
+        elif request.args['action'] == 'sell':
+            for i in range(len(stocks)):
+                if stocks[i].symbol == s.symbol:
+                    stocks[i].quantity += s.quantity
 
-    print(stock_set['AAPL'].last_price)
+    else: #not a valid symbol (or maybe not a valid date for that symbol)
+        pass #print out some error
 
     return render_template('page.html', date=date, stocks=stocks, watchlist= watchlist)
 
