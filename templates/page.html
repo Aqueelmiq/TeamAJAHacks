@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="../static/style.css"/>
     <title>Genus</title>
 </head>
     <body>
@@ -13,12 +14,11 @@
                 <h3>Watch List:</h3>
                 <ol>
                 {% for s in watchlist %}
-                    <li>
+                    <li style="display: inline-block">
                         Symbol: {{ s.symbol }},
                         Unit price: {{ "${:.2f}".format(s.last_price) }}
-                        <ul>
+                        <br/>
                             <img src="{{ s.img }}.png" height="250px" width="305px"/>
-                        </ul>
                     </li>
                 {% endfor %}
                 </ol>
