@@ -16,8 +16,10 @@
                     <li>
                         Symbol: {{ s.symbol }},
                         Price: {{ s.last_price }},
-                        Change: {{ s.change }},
-                        Graph: <img src="{{ s.img }}.png" height="150px" width="175px"/>
+                        Change: {{ s.change }}
+                        <ul>
+                            <img src="{{ s.img }}.png" height="150px" width="175px"/>
+                        </ul>
                     </li>
                 {% endfor %}
                 </ol>
@@ -79,7 +81,7 @@
                 <input type="radio" name="action" value="watchlist" checked> Watchlist
                 <input type="radio" name="action" value="buy"> Buy
                 <input type="radio" name="action" value="sell"> Sell <br/> <br/>
-                <input type="Submit" value="Simulate">
+                <!--<input type="Submit" value="Simulate">-->
                 <input type="Submit" value="Go">
             </form>
         </div>
