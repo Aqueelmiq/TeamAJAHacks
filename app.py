@@ -63,7 +63,7 @@ def next_day():
     date += datetime.timedelta(days= 1)
     while not is_trading_day(date):
         date += datetime.timedelta(days=1)
-    return render_template('page.html', date=date, stocks=stocks)
+    return render_template('page.html', date=date, stocks=stocks, watchlist=watchlist)
 
 def refresh_stocks():
 
