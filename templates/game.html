@@ -33,7 +33,7 @@
         <div class="content">
 			<table width="100%" border="0">
 
-                <button class="start">
+                <button class="formbutton" onclick="rungame()">
                     Start Game
                 </button>
   <tbody>
@@ -52,7 +52,7 @@
   <tbody>
     <tr>
       <th scope="col"><div>
-                <h2> GAME STATUS:  {{ "${:.2f}".format(status) }} </h2>
+                <h2> {{ status }} </h2>
             </div></th>
     </tr>
   </tbody>
@@ -143,17 +143,21 @@
 
     <script>
 
-        var game = 20;
 
-        $('.startgame').click(function(e) {
-            game = 20;
-            while(game > 0) {
-               $.get('/startgame', function() {
+        function rungame() {
+
+            var game = 20;
+            recur(game);
+        }
+
+        function recur(game) {
+            if(game > 0) {
+                $.get('/startgame', function() {
                     game--;
-                    sleep(1000);
+                    setTimeout(recur(game), 10000);
                 });
             }
-        });
+        }
 
     </script>
 
