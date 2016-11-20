@@ -40,7 +40,12 @@ def trade():
     if request.args['action'] == 'watchlist':
         watchlist.append(s)
     elif request.args['action'] == 'buy':
-        stocks.append(s)
+        for i in range(len(stocks)):
+            if stocks[i].symbol==s.symbol and stocks[i].purch_date==s.purch_date: #already there for that date
+                stocks[i].quantity += s.quantity
+                break
+        else:
+            stocks.append(s)
     return render_template('page.html', date=date, stocks=stocks, watchlist= watchlist)
 
 
