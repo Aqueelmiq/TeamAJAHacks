@@ -54,7 +54,7 @@ def start():
     e_date = request.args['end_date'].split("-")
     date = datetime.date(int(s_date[0]),int(s_date[1]),int(s_date[2]))
     end = datetime.date(int(e_date[0]),int(e_date[1]),int(e_date[2]))
-    return render_template('page.html', date = date, stock = stocks, watchlist= watchlist)
+    return render_template('page.html', date = date, stock = stocks, watchlist= watchlist, stock_set=stock_set.values())
 
 
 @app.route('/stocks')
@@ -68,7 +68,6 @@ def trade():
     if request.args['action'] == 'watchlist':
         watchlist.append(s)
     elif request.args['action'] == 'buy':
-
         if stock_set.get(symbol):
             stock_set[symbol].quantity += quantity
         else:
@@ -81,21 +80,30 @@ def trade():
         else:
             stocks.append(s)
     elif request.args['action'] == 'sell':
+        sb = Stock_base(symbol, 0-quantity, float(q['Open']))
+        if stock_set.get(symbol):
+            stock_set[symbol].quantity -= quantity
+        else:
+            stock_set[symbol] = sb
+
         for i in range(len(stocks)):
-            if stocks[i].symbol == s.symbol:
-                stocks[i].quantity += s.quantity
+            if stocks[i].symbol==s.symbol and stocks[i].purch_date==s.purch_date: #already there for that date
+                stocks[i].quantity -= s.quantity
+                break
+        else:
+            stocks.append(s)
 
     print(stock_set['AAPL'].last_price)
 
-    return render_template('page.html', date=date, stocks=stocks, watchlist= watchlist)
+    return render_template('page.html', date=date, stocks=stocks, watchlist= watchlist, stock_set=stock_set.values())
 
 
 def is_trading_day(date):
-    try:
-        get_quotes('YHOO', date, end) is not None
+    if len(get_quotes('YHOO', date, end)) != 0:
         return True
-    except:
+    else:
         return False
+
 
 
 def earning():
@@ -127,7 +135,7 @@ def next_day():
     while not is_trading_day(date):
         date += datetime.timedelta(days=1)
     earning()
-    return render_template('page.html', date=date, stocks=stocks, watchlist=watchlist)
+    return render_template('page.html', date=date, stocks=stocks, watchlist=watchlist, stock_set=stock_set.values())
 
 def refresh_stocks():
 
