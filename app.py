@@ -21,6 +21,7 @@ date = datetime.date(2000, 1, 3)
 end = datetime.date(2016, 11, 11)
 money = 100000
 game_status = False
+sleep_time = 60
 
 class Stock:
     def __init__(self, symbol, quantity, purch_date, init_price):
@@ -127,41 +128,34 @@ def trade():
 
 @app.route("/game")
 def game():
+    global target
+    global date
+    global end
+    global sleep_time
     s_date = request.args['start_date'].split("-")
     e_date = request.args['end_date'].split("-")
-    money = request.args['start']
+    date = datetime.date(int(s_date[0]), int(s_date[1]), int(s_date[2]))
+    end = datetime.date(int(e_date[0]), int(e_date[1]), int(e_date[2]))
+    money = int(request.args['money'])
     diff = request.args['diff']
     if diff == 'hard':
-        target = random.randrange(money*1.3, money*1.5)
+        target = random.randrange(int(money*1.3), int(money*1.5))
         sleep_time = random.randrange(45, 60)
     elif diff == 'medium':
-        target = random.randrange(money * 1.15, money * 1.3)
+        target = random.randrange(int(money * 1.15), int(money * 1.3))
         sleep_time = random.randrange(60, 100)
     else:
-        target = random.randrange(money * 1.05, money * 1.15)
+        target = random.randrange(int(money * 1.05), int(money * 1.15))
         sleep_time = random.randrange(100, 160)
-    global game_status
 
-    game_status = True
-    flag = True
+    status = " Great Brah!"
 
-    while flag:
-        while game_status:
-            time.sleep(int(sleep_time))
-            i = int(random.randrange(1, 4))
-            rand_advance(i)
-            render_template('page.html', date=date, end=end, stock=stocks, watchlist=watchlist,
-                            stock_set=stock_set.values(), money=money)
+    return render_template('game.html', date = date, end=end, stock = stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money, target=target, status = status)
 
-        if date >= e_date:
-            flag = False
-            if money > target:
-                status = "You Won by " + str(target - money) + " - Amazing!!"
-            else:
-                status = "You didnt cut it! Practice more. Use simulators"
-
-    return render_template('page.html', date = date, end=end, stock = stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money)
-
+@app.route("/startgame")
+def yolo():
+    i = int(random.randrange(1, 4))
+    rand_advance(i)
 
 @app.route("/stopgame")
 def stop_game():
