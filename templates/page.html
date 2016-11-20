@@ -4,12 +4,12 @@
     <body>
         {% if watchlist %}
             <p>
-                Stocks owned:
+                Watch List:
                 <ol>
                 {% for s in watchlist %}
                     <li>
                         Symbol: {{ s.symbol }},
-                        Price: {{ s.latest_price }},
+                        Price: {{ s.last_price }},
                         Change: {{ s.change }},
                         Graph: Coming soon!
                     </li>
