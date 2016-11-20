@@ -22,6 +22,7 @@ class Stock:
         self.earnings = 0
         self.last_price = init_price
         self.last_earning = 0
+        self.change = 0
 
 @app.route("/")
 def index():
