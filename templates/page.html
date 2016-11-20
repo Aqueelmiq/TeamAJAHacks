@@ -5,54 +5,63 @@
     <title>Stock Game!</title>
 </head>
     <body>
-        {% if watchlist %}
-            <p>
-                Watch List:
-                <ol>
-                {% for s in watchlist %}
-                    <li>
-                        Symbol: {{ s.symbol }},
-                        Price: {{ s.last_price }},
-                        Change: {{ s.change }},
-                        Graph: Coming soon!
-                    </li>
-                {% endfor %}
-                </ol>
-            </p>
-        {% endif %}
+        <div>
+            {% if watchlist %}
+                <p>
+                    Watch List:
+                    <ol>
+                    {% for s in watchlist %}
+                        <li>
+                            Symbol: {{ s.symbol }},
+                            Price: {{ s.last_price }},
+                            Change: {{ s.change }},
+                            Graph: Coming soon!
+                        </li>
+                    {% endfor %}
+                    </ol>
+                </p>
+            {% endif %}
+        </div>
         <hr>
-        <p>Date: {{ date.isoformat() }}
-        <form id="advance" action="/advance">
-            <input type="Submit" value="Advance Day">
-        </form></p>
-        {% if stocks %}
-            <p>
-                Stocks owned:
-                <ol>
-                {% for s in stock_set %}
-                    <li>
-                        Symbol: {{ s.symbol }},
-                        Quantity: {{ s.quantity }},
-                        Price: {{ s.last_price }},
-                        Earnings to date: {{ s.earnings }}
-                    </li>
-                {% endfor %}
-                </ol>
-            </p>
-        {% endif %}
+        <div>
+            <p>Date: {{ date.isoformat() }}
+            <form id="advance" action="/advance">
+                <input type="Submit" value="Advance Day">
+            </form></p>
+            {% if stocks %}
+                <p>
+                    Stocks owned:
+                    <ol>
+                    {% for s in stock_set %}
+                        <li>
+                            Symbol: {{ s.symbol }},
+                            Quantity: {{ s.quantity }},
+                            Price: {{ s.last_price }},
+                            Earnings to date: {{ s.earnings }}
+                        </li>
+                    {% endfor %}
+                    </ol>
+                </p>
+            {% endif %}
+        </div>
         <hr>
-        <p>
-            <form id="stocks" action="/stocks">
-                <label for="symbol">Symbol:</label>
-                <input type="text" name="symbol" required> <br/> <br/> <!--CSS this-->
-                <label for="quantity">Number of Stocks:</label>
-                <input type="number" name="quantity" min="0"> <br/> <br/>
-                <input type="radio" name="action" value="watchlist" checked> Watchlist
-                <input type="radio" name="action" value="buy"> Buy
-                <input type="radio" name="action" value="sell"> Sell <br/> <br/>
-                <input type="Submit" value="Simulate">
-                <input type="Submit" value="Go">
-            </form>
-        </p>
+        <div><!--Meant to be a sidebar-->
+            <!--Aqueel work here on history-->
+        </div>
+        <div>
+            <p>
+                <form id="stocks" action="/stocks">
+                    <label for="symbol">Symbol:</label>
+                    <input type="text" name="symbol" required> <br/> <br/> <!--CSS this-->
+                    <label for="quantity">Number of Stocks:</label>
+                    <input type="number" name="quantity" min="0"> <br/> <br/>
+                    <input type="radio" name="action" value="watchlist" checked> Watchlist
+                    <input type="radio" name="action" value="buy"> Buy
+                    <input type="radio" name="action" value="sell"> Sell <br/> <br/>
+                    <input type="Submit" value="Simulate">
+                    <input type="Submit" value="Go">
+                </form>
+            </p>
+        </div>
     </body>
 </html>
