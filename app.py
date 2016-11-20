@@ -39,7 +39,6 @@ def trade():
         #might want to tell the user that that is not a symbol
     elif request.args['action'] == 'buy':
         q = get_quotes(symbol, date, end)
-        print(is_stock(symbol))
         if len(q) != 0:
             s = Stock(symbol, quantity, date, float(q['Open']))
             stocks.append(s)
