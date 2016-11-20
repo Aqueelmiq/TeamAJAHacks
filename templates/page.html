@@ -44,12 +44,13 @@
             <h3>Date:</h3>
             <p>{{ date.isoformat() }} {% if date >= end %} ALERT: THIS IS THE ENDING DATE {% endif %}</p>
             <form id="advance" action="/advance">
-                Advance:
+                <p> Advance:
                 <input class="formbutton" type="Submit" name="advance" value="Day">
                 <input class="formbutton" type="Submit" name="advance" value="Week">
                 <input class="formbutton" type="Submit" name="advance" value="Month">
                 <input class="formbutton" type="Submit" name="advance" value="Year">
                 <input class="formbutton" type="Submit" name="advance" value="Decade">
+                </p>
             </form>
         </div>
         <hr>
