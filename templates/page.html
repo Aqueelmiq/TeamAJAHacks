@@ -26,7 +26,12 @@
         <div>
             <p>Date: {{ date.isoformat() }}
             <form id="advance" action="/advance">
-                <input type="Submit" value="Advance Day">
+                Advance:
+                <input type="Submit" name="advance" value="Day">
+                <input type="Submit" name="advance" value="Week">
+                <input type="Submit" name="advance" value="Month">
+                <input type="Submit" name="advance" value="Year">
+                <input type="Submit" name="advance" value="Decade">
             </form></p>
         </div>
         <div>
