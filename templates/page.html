@@ -29,96 +29,106 @@
 
         <div class="content">
 
+            <table width="100%" border="0">
+            <tbody>
+            <tr></tr><th width="100%" >
+                <div>
+                    {% if watchlist %}
+                        <h3>Watch List:</h3>
+                        <ol>
+                        <p>
+                        {% for s in watchlist %}
+                            <li style="display: inline-block">
+                                Symbol: {{ s.symbol }},
+                                Unit price: {{ "${:.2f}".format(s.last_price) }}
+                                <br/>
+                                <img src="{{ s.img }}.png" height="250px" width="305px"/>
+                            </li>
+                        {% endfor %}
+                        </ol>
+                        </p>
+                    {% endif %}
+                </div>
+            <hr>
+            </th></tr>
+            <tr><th width="100%" >
+                <div>
+                    <h2> Account Balance: {{ "${:.2f}".format(money) }} </h2>
+                </div>
+            <hr>
+            </th></tr>
+            <tr><th width="100%" >
             <div>
-                <h2> Account Balance: {{ "${:.2f}".format(money) }} </h2>
+                <h3>Date: {{ date.isoformat() }} {% if date >= end %} ALERT: THIS IS THE ENDING DATE {% endif %}</h3>
+                <form id="advance" action="/advance">
+                    <p> Advance:
+                    <input class="formbutton" type="Submit" name="advance" value="Day">
+                    <input class="formbutton" type="Submit" name="advance" value="Week">
+                    <input class="formbutton" type="Submit" name="advance" value="Month">
+                    <input class="formbutton" type="Submit" name="advance" value="Year">
+                    <input class="formbutton" type="Submit" name="advance" value="Decade">
+                    </p>
+                </form>
             </div>
+        <hr>
+        </th></tr>
+        <tr><td width="60%">
+            <div style="text-align:left">
+                <h3>Control Panel:</h3>
+                <form id="stocks" action="/stocks">
+                    <label class="formlabel" for="symbol">Symbol:</label>
+                    <input class="forminput" type="text" name="symbol" required>
+                    <a href="http://eoddata.com/symbols.aspx"target="_blank"> Extensive list of all symbols</a>
+                    <br/> <br/> <!--CSS this-->
+                    <label class="formlabel" for="quantity">Number of Stocks:</label>
+                    <input class="forminput" type="number" name="quantity" min="0">
+                    <br/> <br/>
+                    <input class="formradio" type="radio" name="action" value="watchlist" checked> <p class="formradio">  Watchlist </p>
+                    <input class="formradio" type="radio" name="action" value="buy"> <p class="formradio">  Buy </p>
+                    <input class="formradio" type="radio" name="action" value="sell"> <p class="formradio"> Sell </p>
+                    <br/> <br/>
+                    <!--<input type="Submit" value="Simulate">-->
+                    <input class="formbutton" type="Submit" value="Go">
+                </form>
+            </div>
+        </td><th>
             <div>
-                {% if watchlist %}
-                    <h3>Watch List:</h3>
+                <h3>Stocks owned:</h3>
+                <p>
+                {% if stock_set %}
                     <ol>
-                    <p>
-                    {% for s in watchlist %}
-                        <li style="display: inline-block">
+                    {% for s in stock_set %}
+                        <li>
                             Symbol: {{ s.symbol }},
-                            Unit price: {{ "${:.2f}".format(s.last_price) }}
-                            <br/>
-                            <img src="{{ s.img }}.png" height="250px" width="305px"/>
+                            Quantity: {{ s.quantity }},
+                            Price: {{ "${:.2f}".format(s.last_price) }},
+                            Earnings to date: {{ "${:.2f}".format(s.earnings) }}
+                        </li>
+                    {% endfor %}
+                    </ol>
+                {% endif %}
+                </p>
+            </div>
+            <hr>
+            <div>
+
+                <h3>Transactions:</h3>
+                {% if stocks %}
+                    <p>
+                    <ol>
+                    {% for s in stocks %}
+                        <li>
+                            Symbol: {{ s.symbol }},
+                            Quantity: {{ s.quantity }},
+                            Price: {{ "${:.2f}".format(s.init_price) }},
+                            Purchase Date: {{ s.purch_date }}
                         </li>
                     {% endfor %}
                     </ol>
                     </p>
                 {% endif %}
             </div>
-            <hr>
-
-        <div>
-            <h3>Date: {{ date.isoformat() }} {% if date >= end %} ALERT: THIS IS THE ENDING DATE {% endif %}</h3>
-            <form id="advance" action="/advance">
-                <p> Advance:
-                <input class="formbutton" type="Submit" name="advance" value="Day">
-                <input class="formbutton" type="Submit" name="advance" value="Week">
-                <input class="formbutton" type="Submit" name="advance" value="Month">
-                <input class="formbutton" type="Submit" name="advance" value="Year">
-                <input class="formbutton" type="Submit" name="advance" value="Decade">
-                </p>
-            </form>
-        </div>
-        <hr>
-        <div>
-            <h3>Stocks owned:</h3>
-            <p>
-            {% if stock_set %}
-                <ol>
-                {% for s in stock_set %}
-                    <li>
-                        Symbol: {{ s.symbol }},
-                        Quantity: {{ s.quantity }},
-                        Price: {{ "${:.2f}".format(s.last_price) }},
-                        Earnings to date: {{ "${:.2f}".format(s.earnings) }}
-                    </li>
-                {% endfor %}
-                </ol>
-            {% endif %}
-            </p>
-        </div>
-        <hr>
-        <div>
-
-            <h3>Transactions:</h3>
-            {% if stocks %}
-                <p>
-                <ol>
-                {% for s in stocks %}
-                    <li>
-                        Symbol: {{ s.symbol }},
-                        Quantity: {{ s.quantity }},
-                        Price: {{ "${:.2f}".format(s.init_price) }},
-                        Purchase Date: {{ s.purch_date }}
-                    </li>
-                {% endfor %}
-                </ol>
-                </p>
-            {% endif %}
-        </div>
-        <hr>
-        <div>
-            <h3>Control Panel:</h3>
-            <form id="stocks" action="/stocks">
-                <label class="formlabel" for="symbol">Symbol:</label>
-                <input class="forminput" type="text" name="symbol" required>
-                <a href="http://eoddata.com/symbols.aspx"target="_blank"> Extensive list of all symbols</a>
-                <br/> <br/> <!--CSS this-->
-                <label class="formlabel" for="quantity">Number of Stocks:</label>
-                <input class="forminput" type="number" name="quantity" min="0">
-                <br/> <br/>
-                <input class="formradio" type="radio" name="action" value="watchlist" checked> <p class="formradio">  Watchlist </p>
-                <input class="formradio" type="radio" name="action" value="buy"> <p class="formradio">  Buy </p>
-                <input class="formradio" type="radio" name="action" value="sell"> <p class="formradio"> Sell </p>
-                <br/> <br/>
-                <!--<input type="Submit" value="Simulate">-->
-                <input class="formbutton" type="Submit" value="Go">
-            </form>
-        </div>
+            </th></tr>
         </div>
 
     </body>

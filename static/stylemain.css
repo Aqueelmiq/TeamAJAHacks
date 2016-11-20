@@ -34,7 +34,6 @@ body {
   position: relative;
   top: 70px;
   width: 1180px;
-  height: 880px;
   z-index: 12;
     padding: 50px;
 }
@@ -65,6 +64,10 @@ p {
   color: rgb(76, 76, 90);
   font-weight: 200;
 
+}
+
+tr {
+  width: 100%;
 }
 
 #main_form {
