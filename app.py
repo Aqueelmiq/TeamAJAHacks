@@ -14,7 +14,7 @@ stock_set = {}
 
 ###DEFAULTS:
 date = datetime.date(2000, 1, 3)
-end = datetime.date(2017, 1, 1)
+end = datetime.date(2016, 11, 11)
 money = 100000
 
 class Stock:
@@ -57,11 +57,12 @@ def start():
     date = datetime.date(int(s_date[0]),int(s_date[1]),int(s_date[2]))
     end = datetime.date(int(e_date[0]),int(e_date[1]),int(e_date[2]))
     money = int(request.args['money'])
-    return render_template('page.html', date = date, stock = stocks, watchlist= watchlist, stock_set=stock_set.values())
+    return render_template('page.html', date = date, stock = stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money)
 
 
 @app.route('/stocks')
 def trade():
+    global money
     symbol = request.args['symbol']
     quant = request.args['quantity']
     quantity = int(quant) if quant else 0
@@ -72,7 +73,7 @@ def trade():
         if request.args['action'] == 'watchlist':
             watchlist.append(s)
         elif request.args['action'] == 'buy':
-
+            money -= quantity*s.init_price
             if stock_set.get(symbol):
                 stock_set[symbol].quantity += quantity
             else:
@@ -85,6 +86,7 @@ def trade():
             else:
                 stocks.append(s)
         elif request.args['action'] == 'sell':
+            money += quantity * s.init_price
             sb = Stock_base(symbol, 0-quantity, float(q['Open']))
             if stock_set.get(symbol):
                 stock_set[symbol].quantity -= quantity
@@ -101,7 +103,7 @@ def trade():
     else: #not a valid symbol (or maybe not a valid date for that symbol)
         pass #print out some error
 
-    return render_template('page.html', date=date, stocks=stocks, watchlist= watchlist, stock_set=stock_set.values())
+    return render_template('page.html', date=date, stocks=stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money)
 
 
 def is_trading_day(date):
@@ -112,13 +114,14 @@ def is_trading_day(date):
 
 
 def earning():
+    global money
     for s,y in stock_set.items():
         if is_symbol(s):
             q = get_quotes(y.symbol, date, end)
             diff = q['Open'] - y.last_price
             y.last_price = q['Open']
             y.earnings += diff*y.quantity
-            print("earnings", y.earnings)
+            money += diff*y.quantity
 
 def get_quotes(symbol, start_date, end_date):
     try:
@@ -140,11 +143,7 @@ def next_day():
     while not is_trading_day(date):
         date += datetime.timedelta(days=1)
     earning()
-    return render_template('page.html', date=date, stocks=stocks, watchlist=watchlist, stock_set=stock_set.values())
-
-def refresh_stocks():
-
-    pass
+    return render_template('page.html', date=date, stocks=stocks, watchlist=watchlist, stock_set=stock_set.values(), money = money)
 
 def earnings(stock):
     q = get_quotes(stock.symbol, date, end)
