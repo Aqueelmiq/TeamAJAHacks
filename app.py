@@ -24,10 +24,15 @@ class Stock:
         self.last_earning = 0
         self.change = 0
 
-@app.route("/")
+@app.route("/") #asking the user for dates
 def index():
-    return render_template('page.html', date = date, stock = stocks, watchlist= watchlist)
+    yesterday = (datetime.date.today() - datetime.timedelta(days=1))
+    return render_template('index.html', today=yesterday.isoformat()) #needs the day before today
 
+
+@app.route("/start")
+def start():
+    return render_template('page.html', date = date, stock = stocks, watchlist= watchlist)
 
 
 @app.route('/stocks')

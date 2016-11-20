@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Game</title>
+</head>
+<body>
+    <form id="index_form" action="/start">
+        <label for="start_date">Start_date:</label>
+        <input type="date" name="start_date" max="{{ today }}">
+        <br />
+        <label for="end_date">End_date:</label>
+        <input type="date" name="end_date" max="{{ today }}">
+        <br />
+        <label for="money">Initial amount of money:</label>
+        <input type="number" name="money" min="0">
+        <br />
+        <input type="Submit" value="Start!">
+    </form>
+</body>
+</html>
