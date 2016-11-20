@@ -63,7 +63,7 @@ def get_quotes(symbol, start_date, end_date):
     except:
         return []
 
-def is_stock(symbol):
+def is_symbol(symbol):
     return len(get_quotes(symbol,date,end)) != 0
 
 @app.route('/advance')
