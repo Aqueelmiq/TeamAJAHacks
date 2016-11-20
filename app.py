@@ -137,25 +137,24 @@ def is_symbol(symbol):
 @app.route('/advance')
 def advance():
     global  date
-
+    next_date = date
     time_amount = request.args['advance']
     if time_amount == 'Day':
-        date += datetime.timedelta(days= 1)
+        next_date += datetime.timedelta(days= 1)
     elif time_amount == 'Week':
-        date += datetime.timedelta(weeks= 1)
+        next_date += datetime.timedelta(weeks= 1)
     elif time_amount == 'Month':
-        if date.month<12:
-            date = date.replace(month=date.month+1)
+        if next_date.month<12:
+            next_date = next_date.replace(month=next_date.month+1)
         else:
-            date = date.replace(year=date.year+1, month=1)
+            next_date = next_date.replace(year=next_date.year+1, month=1)
     elif time_amount == 'Year':
-        date = date.replace(year=date.year + 1)
+        next_date = next_date.replace(year=next_date.year + 1)
     elif time_amount == 'Decade':
-        date = date.replace(year=date.year + 10)
+        next_date = next_date.replace(year=next_date.year + 10)
 
-    if date > end:
-        earning()
-        return render_template('page.html', date=date, stocks=stocks, watchlist=watchlist, stock_set=stock_set.values())
+    if next_date <= end:
+        date = next_date
 
     while not is_trading_day(date):
         date += datetime.timedelta(days=1)
