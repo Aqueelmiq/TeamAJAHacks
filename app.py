@@ -43,7 +43,8 @@ def start():
 @app.route('/stocks')
 def trade():
     symbol = request.args['symbol']
-    quantity = int(request.args['quantity'])
+    quant = request.args['quantity']
+    quantity = int(quant) if quant else 0
     q = get_quotes(symbol, date, end)
     if is_symbol(symbol):
         s = Stock(symbol, quantity, date, float(q['Open']))
