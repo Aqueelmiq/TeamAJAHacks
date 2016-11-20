@@ -26,7 +26,7 @@ class Stock:
 
 @app.route("/")
 def index():
-    return render_template('page.html', date = date, stock = stocks)
+    return render_template('page.html', date = date, stock = stocks, watchlist= watchlist)
 
 
 
@@ -34,18 +34,14 @@ def index():
 def trade():
     symbol = request.args['symbol']
     quantity = int(request.args['quantity'])
+    q = get_quotes(symbol, date, end)
+    if is_symbol(symbol):
+        s = Stock(symbol, quantity, date, float(q['Open']))
     if request.args['action'] == 'watchlist':
-        if is_symbol(symbol):
-            watchlist.append(symbol)
-        #might want to tell the user that that is not a symbol
+        watchlist.append(s)
     elif request.args['action'] == 'buy':
-        q = get_quotes(symbol, date, end)
-        if len(q) != 0:
-            s = Stock(symbol, quantity, date, float(q['Open']))
-            stocks.append(s)
-    #elif request.args['action'] == 'sell':
-        #stocks.remove(symbol) HOW ARE WE GONNA KNOW WHICH ONE TO REMOVE?
-    return render_template('page.html', date=date, stocks=stocks)
+        stocks.append(s)
+    return render_template('page.html', date=date, stocks=stocks, watchlist= watchlist)
 
 
 def is_trading_day(date):
