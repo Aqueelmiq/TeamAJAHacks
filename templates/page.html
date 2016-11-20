@@ -27,7 +27,7 @@
         </div>
         <hr>
         <div>
-            <p>Date: {{ date.isoformat() }}
+            <p>Date: {{ date.isoformat() }} {% if date >= end %} ALERT: THIS IS THE ENDING DATE {% endif %}
             <form id="advance" action="/advance">
                 Advance:
                 <input type="Submit" name="advance" value="Day">

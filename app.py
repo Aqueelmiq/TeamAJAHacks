@@ -57,7 +57,7 @@ def start():
     date = datetime.date(int(s_date[0]),int(s_date[1]),int(s_date[2]))
     end = datetime.date(int(e_date[0]),int(e_date[1]),int(e_date[2]))
     money = int(request.args['money'])
-    return render_template('page.html', date = date, stock = stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money)
+    return render_template('page.html', date = date, end=end, stock = stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money)
 
 
 @app.route('/stocks')
@@ -90,6 +90,8 @@ def trade():
             sb = Stock_base(symbol, 0-quantity, float(q['Open']))
             if stock_set.get(symbol):
                 stock_set[symbol].quantity -= quantity
+                if stock_set[symbol].quantity == 0:
+                    del stock_set[symbol]
             else:
                 stock_set[symbol] = sb
 
@@ -103,7 +105,7 @@ def trade():
     else: #not a valid symbol (or maybe not a valid date for that symbol)
         pass #print out some error
 
-    return render_template('page.html', date=date, stocks=stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money)
+    return render_template('page.html', date=date, end=end, stocks=stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money)
 
 
 def is_trading_day(date):
@@ -159,7 +161,7 @@ def advance():
     while not is_trading_day(date):
         date += datetime.timedelta(days=1)
     earning()
-    return render_template('page.html', date=date, stocks=stocks, watchlist=watchlist, stock_set=stock_set.values(), money = money)
+    return render_template('page.html', date=date, end=end, stocks=stocks, watchlist=watchlist, stock_set=stock_set.values(), money = money)
 
 def earnings(stock):
     q = get_quotes(stock.symbol, date, end)
