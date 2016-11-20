@@ -57,7 +57,7 @@ def start():
     date = datetime.date(int(s_date[0]),int(s_date[1]),int(s_date[2]))
     end = datetime.date(int(e_date[0]),int(e_date[1]),int(e_date[2]))
     money = int(request.args['money'])
-    return render_template('page.html', date = date, stock = stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money)
+    return render_template('page.html', date = date, end=end, stock = stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money)
 
 
 @app.route('/stocks')
@@ -90,6 +90,8 @@ def trade():
             sb = Stock_base(symbol, 0-quantity, float(q['Open']))
             if stock_set.get(symbol):
                 stock_set[symbol].quantity -= quantity
+                if stock_set[symbol].quantity == 0:
+                    del stock_set[symbol]
             else:
                 stock_set[symbol] = sb
 
@@ -103,7 +105,7 @@ def trade():
     else: #not a valid symbol (or maybe not a valid date for that symbol)
         pass #print out some error
 
-    return render_template('page.html', date=date, stocks=stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money)
+    return render_template('page.html', date=date, end=end, stocks=stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money)
 
 
 def is_trading_day(date):
@@ -137,30 +139,29 @@ def is_symbol(symbol):
 @app.route('/advance')
 def advance():
     global  date
-
+    next_date = date
     time_amount = request.args['advance']
     if time_amount == 'Day':
-        date += datetime.timedelta(days= 1)
+        next_date += datetime.timedelta(days= 1)
     elif time_amount == 'Week':
-        date += datetime.timedelta(weeks= 1)
+        next_date += datetime.timedelta(weeks= 1)
     elif time_amount == 'Month':
-        if date.month<12:
-            date = date.replace(month=date.month+1)
+        if next_date.month<12:
+            next_date = next_date.replace(month=next_date.month+1)
         else:
-            date = date.replace(year=date.year+1, month=1)
+            next_date = next_date.replace(year=next_date.year+1, month=1)
     elif time_amount == 'Year':
-        date = date.replace(year=date.year + 1)
+        next_date = next_date.replace(year=next_date.year + 1)
     elif time_amount == 'Decade':
-        date = date.replace(year=date.year + 10)
+        next_date = next_date.replace(year=next_date.year + 10)
 
-    if date > end:
-        earning()
-        return render_template('page.html', date=date, stocks=stocks, watchlist=watchlist, stock_set=stock_set.values())
+    if next_date <= end:
+        date = next_date
 
     while not is_trading_day(date):
         date += datetime.timedelta(days=1)
     earning()
-    return render_template('page.html', date=date, stocks=stocks, watchlist=watchlist, stock_set=stock_set.values(), money = money)
+    return render_template('page.html', date=date, end=end, stocks=stocks, watchlist=watchlist, stock_set=stock_set.values(), money = money)
 
 def earnings(stock):
     q = get_quotes(stock.symbol, date, end)

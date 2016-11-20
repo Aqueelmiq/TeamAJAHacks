@@ -8,13 +8,13 @@
     <form id="index_form" action="/start">
         <label for="start_date">Start date:</label>
         <input type="date" name="start_date" max="{{ yesterday }}">
-        <br />
+        <br/><br/>
         <label for="end_date">End date:</label>
         <input type="date" name="end_date" max="{{ yesterday }}" value="{{ yesterday }}">
-        <br />
+        <br/><br/>
         <label for="money">Initial amount of money:</label>
         <input type="number" name="money" min="0" value="100000" required>
-        <br />
+        <br/><br/>
         <input type="Submit" value="Start!">
     </form>
 </body>
