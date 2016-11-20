@@ -22,10 +22,11 @@ class Stock:
         self.earnings = 0
         self.last_price = init_price
         self.last_earning = 0
+        self.change = 0
 
 @app.route("/")
 def index():
-    return render_template('page.html', date = date, stock = stocks)
+    return render_template('page.html', date = date, stock = stocks, watchlist = watchlist)
 
 
 
@@ -37,7 +38,7 @@ def trade():
     if len(q) != 0:
         s = Stock(symbol, quantity, date, float(q['Open']))
         stocks.append(s)
-    return render_template('page.html', date=date, stocks=stocks)
+    return render_template('page.html', date=date, stocks=stocks, watchlist = watchlist)
 
 
 def is_trading_day(date):
@@ -63,7 +64,7 @@ def next_day():
     while not is_trading_day(date):
         date += datetime.timedelta(days=1)
     print(is_trading_day(date))
-    return render_template('page.html', date=date, stocks=stocks)
+    return render_template('page.html', date=date, stocks=stocks, watchlist = watchlist)
 
 def refresh_stocks():
 
