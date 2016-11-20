@@ -83,6 +83,9 @@ def refresh_stocks():
 
     pass
 
-
+def earnings(stock):
+    q = get_quotes(stock.symbol, date, end)
+    open_price = q['Open']
+    
 if __name__ == '__main__':
     app.run()
