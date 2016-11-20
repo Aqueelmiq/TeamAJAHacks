@@ -34,7 +34,7 @@ body {
   position: relative;
   top: 70px;
   width: 1180px;
-  height: 680px;
+  height: 880px;
   z-index: 12;
     padding: 50px;
 }
@@ -66,3 +66,69 @@ p {
   font-weight: 200;
 
 }
+
+#main_form {
+
+    display: block;
+    position: relative;
+    top: 100px;
+    left: 50px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.forminput {
+    font-family: Lato, sans-serif;
+    font-size: 20pt;
+    font-style: normal;
+    font-weight: 200;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(236, 236, 237);
+  border-radius: 2px;
+  background-color: rgba(255, 254, 254, 0.6);
+  width: 300px;
+  height: 45px;
+  z-index: 41;
+}
+
+.formlabel {
+
+    font-family: Lato, sans-serif;
+    font-size: 14pt;
+    font-style: normal;
+    font-weight: 200;
+    padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(236, 236, 237);
+  border-radius: 2px;
+  width: 300px;
+  height: 45px;
+  z-index: 42;
+}
+
+.formbutton {
+
+    font-family: Lato, sans-serif;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: 300;
+  width: 150px;
+  height: 40px;
+    background-color: rgb(245, 110, 78);
+
+}
+
+
+.formradio {
+
+    display: inline-block;
+    font-family: Lato, sans-serif;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: 300;
+
+}
+
