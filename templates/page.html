@@ -1,30 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="../static/stylemain.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../static/style.css"/>
+    <script src="https://use.typekit.net/hbg8vny.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
     <title>Genus</title>
 </head>
     <body>
-        <div>
-            <h2> Account Balance: {{ "${:.2f}".format(money) }} </h2>
+
+        <div class="Nav">
+            <h1 id="header">WELCOME TO GENUS!</h1>
+            <h3 id ="tagline">The Strategic Stock Trading Game</h3>
         </div>
-        <div>
-            {% if watchlist %}
-                <h3>Watch List:</h3>
-                <ol>
-                {% for s in watchlist %}
-                    <li style="display: inline-block">
-                        Symbol: {{ s.symbol }},
-                        Unit price: {{ "${:.2f}".format(s.last_price) }}
-                        <br/>
+
+        <div class="content">
+
+            <div>
+                <h2> Account Balance: {{ "${:.2f}".format(money) }} </h2>
+            </div>
+            <div>
+                {% if watchlist %}
+                    <h3>Watch List:</h3>
+                    <ol>
+                    <p>
+                    {% for s in watchlist %}
+                        <li style="display: inline-block">
+                            Symbol: {{ s.symbol }},
+                            Unit price: {{ "${:.2f}".format(s.last_price) }}
+                            <br/>
                             <img src="{{ s.img }}.png" height="250px" width="305px"/>
-                    </li>
-                {% endfor %}
-                </ol>
-            {% endif %}
-        </div>
-        <hr>
+                        </li>
+                    {% endfor %}
+                    </ol>
+                    </p>
+                {% endif %}
+            </div>
+            <hr>
+
         <div>
             <h3>Date:</h3>
             <p>{{ date.isoformat() }} {% if date >= end %} ALERT: THIS IS THE ENDING DATE {% endif %}</p>
@@ -40,6 +55,7 @@
         <hr>
         <div>
             <h3>Stocks owned:</h3>
+            <p>
             {% if stock_set %}
                 <ol>
                 {% for s in stock_set %}
@@ -52,11 +68,14 @@
                 {% endfor %}
                 </ol>
             {% endif %}
+            </p>
         </div>
         <hr>
         <div>
+
             <h3>Transactions:</h3>
             {% if stocks %}
+                <p>
                 <ol>
                 {% for s in stocks %}
                     <li>
@@ -67,6 +86,7 @@
                     </li>
                 {% endfor %}
                 </ol>
+                </p>
             {% endif %}
         </div>
         <hr>
@@ -88,5 +108,8 @@
                 <input type="Submit" value="Go">
             </form>
         </div>
+
+        </div>
+
     </body>
 </html>

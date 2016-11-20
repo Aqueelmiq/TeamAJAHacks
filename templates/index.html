@@ -4,24 +4,36 @@
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../static/style.css"/>
+    <script src="https://use.typekit.net/hbg8vny.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
     <title>Genus</title>
 </head>
 
 <body>
-    <h1>WELCOME TO GENUS!</h1>
-    <h3>The Strategic Stock Trading Game</h3>
-    <form id="index_form" action="/start">
-        <label for="start_date">Start date:</label>
-        <input type="date" name="start_date" max="{{ yesterday }}" required>
+    <div class="Nav">
+        <h1 id="header">WELCOME TO GENUS!</h1>
+        <h3 id ="tagline">The Strategic Stock Trading Game</h3>
+    </div>
+
+    <div class="content">
+
+        <form id="index_form" action="/start">
+
+        <label class="formlabel" id="sdate" for="start_date">Start date:</label>
+        <input class="forminput" type="date" name="start_date" max="{{ yesterday }}" required>
         <br/><br/>
-        <label for="end_date">End date:</label>
-        <input type="date" name="end_date" max="{{ yesterday }}" value="{{ yesterday }}"required>
+        <label class="formlabel" id="edate" for="end_date">End date:</label>
+        <input class="forminput" type="date" name="end_date" max="{{ yesterday }}" value="{{ yesterday }}"required>
         <br/><br/>
-        <label for="money">Initial amount of money:</label>
-        <input type="number" name="money" min="0" value="100000" required>
+        <label class="formlabel" id = "amt" for="money">Initial amount of money:</label>
+        <input class="forminput" type="number" name="money" min="0" value="100000" required>
         <br/><br/>
-        <input type="Submit" name="mode" value="Start!">
-        <input type="Submit" name="mode" value="Challenge Mode">
+        <input class="formbutton" id = "Startsim" type="Submit" name="mode" value="Start!">
+        <input class="formbutton" id = "Challenge" type="Submit" name="mode" value="Challenge Mode">
+
     </form>
+
+    </div>
+
 </body>
 </html>

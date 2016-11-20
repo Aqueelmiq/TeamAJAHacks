@@ -1,3 +1,163 @@
-body{
-    background: deepskyblue;
+
+body {
+  border-radius: 2px;
+  background-color: rgb(236, 236, 237);
+  position: relative;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 783px;
+  z-index: 2;
 }
+
+.Nav {
+  border-width: 0.14px;
+  border-color: rgb(0, 0, 0);
+  border-style: solid;
+  background-color: rgb(76, 80, 96);
+  position: relative;
+  top: 40px;
+  width: 1180px;
+  height: 75px;
+    margin-left: auto;
+    margin-right: auto;
+  z-index: 4;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.content {
+    margin-left: auto;
+    margin-right: auto;
+  border-radius: 2px;
+  background-color: rgb(247, 247, 248);
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+  position: relative;
+  top: 70px;
+  width: 1180px;
+  height: 680px;
+  z-index: 12;
+    padding: 50px;
+}
+
+#header {
+
+    display: inline-block;
+    color: white;
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+    left: 50px;
+    padding: 15px;
+}
+
+#tagline {
+    color: white;
+    display: inline-block;
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+    left: 50px;
+    padding: 15px;
+}
+
+
+h1 {
+    font-family: bebas-neue, sans-serif;
+    font-size: 30pt;
+    font-style: normal;
+    font-weight: 400;
+}
+
+h3 {
+
+    font-family: Lato, sans-serif;
+    font-size: 18pt;
+    font-style: normal;
+    font-weight: 300;
+
+}
+
+#index_form {
+
+    display: block;
+    position: relative;
+    top: 100px;
+    left: 50px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.forminput {
+    font-family: Lato, sans-serif;
+    font-size: 20pt;
+    font-style: normal;
+    font-weight: 200;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(236, 236, 237);
+  border-radius: 2px;
+  background-color: rgba(255, 254, 254, 0.6);
+  width: 300px;
+  height: 45px;
+  z-index: 41;
+}
+
+.formlabel {
+
+    font-family: Lato, sans-serif;
+    font-size: 14pt;
+    font-style: normal;
+    font-weight: 200;
+    padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(236, 236, 237);
+  border-radius: 2px;
+  width: 300px;
+  height: 45px;
+  z-index: 42;
+}
+
+.formbutton {
+
+    font-family: Lato, sans-serif;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: 300;
+  width: 150px;
+  height: 40px;
+    background-color: rgb(245, 110, 78);
+
+}
+
+
+#edate {
+    position: relative;
+}
+
+#sdate {
+
+    position: relative;
+}
+
+#amt {
+
+    position: relative;
+
+}
+
+#startsim {
+
+    position: relative;
+
+}
+
+#Challenge {
+
+    position: relative;
+
+}
+
+
