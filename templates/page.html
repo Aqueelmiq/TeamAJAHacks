@@ -29,11 +29,11 @@
             <p>
                 Stocks owned:
                 <ol>
-                {% for s in stocks %}
+                {% for s in stock_set %}
                     <li>
                         Symbol: {{ s.symbol }},
                         Quantity: {{ s.quantity }},
-                        Purchased: {{ s.purch_date.isoformat() }},
+                        Price: {{ s.last_price }},
                         Earnings to date: {{ s.earnings }}
                     </li>
                 {% endfor %}
