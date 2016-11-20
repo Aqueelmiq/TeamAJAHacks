@@ -6,6 +6,9 @@
 </head>
     <body>
         <div>
+            <h2> Account Balance: {{ money }}$ </h2>
+        </div>
+        <div>
             {% if watchlist %}
                 <p>
                     Watch List:
@@ -35,7 +38,7 @@
             </form></p>
         </div>
         <div>
-            {% if stocks %}
+            {% if stock_set %}
                 <p>
                     Stocks owned:
                     <ol>
@@ -52,9 +55,24 @@
             {% endif %}
         </div>
         <hr>
-        <div><!--Meant to be a sidebar-->
-            <!--Aqueel work here on history-->
+        <div>
+            {% if stocks %}
+                <p>
+                    Transactions:
+                    <ol>
+                    {% for s in stocks %}
+                        <li>
+                            Symbol: {{ s.symbol }},
+                            Quantity: {{ s.quantity }},
+                            Price: {{ s.init_price }},
+                            Purchase Date: {{ s.purch_date }}
+                        </li>
+                    {% endfor %}
+                    </ol>
+                </p>
+            {% endif %}
         </div>
+        <hr>
         <div>
             <p>
                 <form id="stocks" action="/stocks">

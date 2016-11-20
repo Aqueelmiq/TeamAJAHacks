@@ -164,6 +164,9 @@ def advance():
 def earnings(stock):
     q = get_quotes(stock.symbol, date, end)
     open_price = q['Open']
+
+def graph_gen(start_date, end_date):
+    hello = 0
     
 if __name__ == '__main__':
     app.run()
