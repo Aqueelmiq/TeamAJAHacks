@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../static/stylemain.css"/>
     <link type="text/css" rel="stylesheet" href="../static/style.css"/>
     <script src="https://use.typekit.net/hbg8vny.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
@@ -19,10 +20,11 @@
     </div>
 
     <div class="content">
-
+    <table width="100%" border="0">
+        <tbody>
+        <tr><th>
         <div class="index_form">
         <form action="/start">
-
         <label class="formlabel" id="sdate" for="start_date">Start date:</label>
         <input class="forminput" type="date" name="start_date" max="{{ yesterday }}" required>
         <br/><br/>
@@ -35,10 +37,10 @@
         <input class="formbutton" id = "Startsim" type="Submit" name="mode" value="Start!">
         <!--<input class="formbutton" id = "Challenge" type="Submit" name="mode" value="Challenge Mode">-->
         </form>
-        </div>
+        </div></th>
+        <th>
         <div class="index_form">
         <form action="/game">
-
         <label class="formlabel" id="gsdate" for="start_date">Start date:</label>
         <input class="forminput" type="date" name="start_date" max="{{ yesterday }}" required>
         <br/><br/>
@@ -49,14 +51,16 @@
         <input class="forminput" type="number" name="money" min="0" value="100000" required>
         <br/><br/>
         <label class="formlabel" id = "gdiff" for="diff">Diff:</label>
-        <input class="forminput" type="radio" name="diff" value="Hard" checked>
-        <input class="forminput" type="radio" name="diff" value="Medium">
-        <input class="forminput" type="radio" name="diff" value="Easy">
+        <input class="formradio" type="radio" name="diff" value="hard" checked> <p class="formradio">  Hard </p>
+        <input class="formradio" type="radio" name="diff" value="medium"> <p class="formradio">  Medium </p>
+        <input class="formradio" type="radio" name="diff" value="easy"> <p class="formradio"> Easy </p>
         <br/><br/>
         <!--<input class="formbutton" id = "Startsim" type="Submit" name="mode" value="Start!">-->
         <input class="formbutton" id = "Challenge" type="Submit" name="mode" value="Challenge Mode">
         </form>
-        </div>
+        </div></th>
+        </tr></tbody>
+        </table>
 
     </div>
 
