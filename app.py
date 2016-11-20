@@ -51,6 +51,11 @@ class Stock_base:
 
 @app.route("/") #asking the user for dates
 def index():
+    global stocks, watchlist, stock_set, game_status
+    stocks = []
+    watchlist = []
+    stock_set = {}
+    game_status = False
     yesterday = (datetime.date.today() - datetime.timedelta(days=1))
     return render_template('index.html', yesterday=yesterday.isoformat()) #needs the day before today
 
