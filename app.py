@@ -10,7 +10,7 @@ app = Flask(__name__)
 #Main Stocks library
 stocks = []
 watchlist = []
-date = datetime.date(2000, 1, 1)
+date = datetime.date(2000, 1, 3)
 end = datetime.date(2017, 1, 1)
 
 class Stock:
@@ -25,50 +25,37 @@ class Stock:
 
 @app.route("/")
 def index():
-    return render_template('page.html')
+    return render_template('page.html', date = date, stock = stocks)
 
-
-@app.route("/advance")
-def advance_day():
-    global date
-    date += datetime.timedelta(days=1)
-    while not is_trading_day(date):
-        date += datetime.timedelta(days=1)
-    update_stocks()
-    return render_template('stocks.html', date=date, stocks=stocks)
-
-
-def update_stocks():
-    for s in stocks:
-        q = fetch_quotes(s.symbol, date, date)
-        if q:
-            s.earnings = s.quantity * (float(q['Close']) - s.init_price)
-            s.last_earning = s.quantity * (float(q['Close']) - s.last_price)
-            s.last_price = float(q['Close'])
 
 
 @app.route('/stocks')
 def trade():
     symbol = request.args['symbol']
     quantity = int(request.args['quantity'])
-    q = fetch_quotes(symbol, date, end)
-    if q:
-        s = Stock(symbol, quantity, date, q)
+    q = get_quotes(symbol, date, end)
+    if len(q) != 0:
+        s = Stock(symbol, quantity, date, float(q['Open']))
         stocks.append(s)
-    return render_template('stocks.html', date=date, stocks=stocks)
+    return render_template('page.html', date=date, stocks=stocks)
 
 
 def is_trading_day(date):
-    return fetch_quotes('YHOO', date, end) is not None
+    return get_quotes('YHOO', date, end) is not None
 
 
-def fetch_quotes(symbol, start_date, end_date):
+def get_quotes(symbol, start_date, end_date):
     stock = pdr.DataReader(symbol, 'yahoo', start_date, end_date)
-    #print(stock)
-    print(start_date)
-    print(stock.ix['2010-01-04']['Open'])
-    return float(stock.ix['2010-01-04']['Open'])
+    return stock.ix[start_date.isoformat()]
 
+
+@app.route('/advance')
+def next_day():
+    date += datetime.timedelta(days= 1)
+    return render_template('page.html', date=date, stocks=stocks)
+
+def refresh_stocks():
+    pass
 
 
 if __name__ == '__main__':
