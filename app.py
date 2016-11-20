@@ -153,7 +153,7 @@ def game():
     return render_template('page.html', date = date, end=end, stock = stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money)
 
 
-@app.route("/game")
+@app.route("/stopgame")
 def stop_game():
     global game_status
     game_status = False
