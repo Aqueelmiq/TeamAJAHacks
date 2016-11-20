@@ -35,6 +35,7 @@ def trade():
     quantity = int(request.args['quantity'])
     if request.args['action'] == 'buy':
         q = get_quotes(symbol, date, end)
+        print(is_stock(symbol))
         if len(q) != 0:
             s = Stock(symbol, quantity, date, float(q['Open']))
             stocks.append(s)
@@ -51,9 +52,15 @@ def is_trading_day(date):
 
 
 def get_quotes(symbol, start_date, end_date):
-    stock = pdr.DataReader(symbol, 'yahoo', start_date, end_date)
-    return stock.ix[start_date.isoformat()]
+    try:
+        pdr.DataReader(symbol, 'yahoo', start_date, end_date)
+        stock = pdr.DataReader(symbol, 'yahoo', start_date, end_date)
+        return stock.ix[start_date.isoformat()]
+    except:
+        return []
 
+def is_stock(symbol):
+    return len(get_quotes(symbol,date,end)) != 0
 
 @app.route('/advance')
 def next_day():
