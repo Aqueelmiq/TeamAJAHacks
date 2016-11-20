@@ -2,6 +2,22 @@
 <html>
     <head><title>Stock Game!</title></head>
     <body>
+        {% if watchlist %}
+            <p>
+                Stocks owned:
+                <ol>
+                {% for s in watchlist %}
+                    <li>
+                        Symbol: {{ s.symbol }},
+                        Price: {{ s.latest_price }},
+                        Change: {{ s.change }},
+                        Graph: Coming soon!
+                    </li>
+                {% endfor %}
+                </ol>
+            </p>
+        {% endif %}
+        <hr>
         <p>Date: {{ date.isoformat() }}
         <form id="advance" action="/advance">
             <input type="Submit" value="Advance Day">
