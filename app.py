@@ -83,6 +83,7 @@ def trade():
             else: #not in watchlist
                 s.img = graph_gen(symbol, date)
                 watchlist.append(s)
+                watchlist.sort(key=lambda sw: sw.symbol)
         elif request.args['action'] == 'buy':
             money -= quantity*s.init_price
             if stock_set.get(symbol):
