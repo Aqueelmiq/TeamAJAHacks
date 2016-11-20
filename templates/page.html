@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Stock Game!</title>
+    <title>Genus</title>
 </head>
     <body>
         <div>
-            <h2> Account Balance: {{ money }}$ </h2>
+            <h2> Account Balance: {{ "${:.2f}".format(money) }} </h2>
         </div>
         <div>
             {% if watchlist %}
@@ -15,8 +15,7 @@
                 {% for s in watchlist %}
                     <li>
                         Symbol: {{ s.symbol }},
-                        Price: {{ s.last_price }},
-                        Change: {{ s.change }},
+                        Unit price: {{ "${:.2f}".format(s.last_price) }}
                         <ul>
                             <img src="{{ s.img }}.png" height="250px" width="305px"/>
                         </ul>
@@ -47,8 +46,8 @@
                     <li>
                         Symbol: {{ s.symbol }},
                         Quantity: {{ s.quantity }},
-                        Price: {{ s.last_price }},
-                        Earnings to date: {{ s.earnings }}
+                        Price: {{ "${:.2f}".format(s.last_price) }},
+                        Earnings to date: {{ "${:.2f}".format(s.earnings) }}
                     </li>
                 {% endfor %}
                 </ol>
@@ -63,7 +62,7 @@
                     <li>
                         Symbol: {{ s.symbol }},
                         Quantity: {{ s.quantity }},
-                        Price: {{ s.init_price }},
+                        Price: {{ "${:.2f}".format(s.init_price) }},
                         Purchase Date: {{ s.purch_date }}
                     </li>
                 {% endfor %}
@@ -72,16 +71,20 @@
         </div>
         <hr>
         <div>
-            <h3>Control Panel</h3>
+            <h3>Control Panel:</h3>
             <form id="stocks" action="/stocks">
                 <label for="symbol">Symbol:</label>
-                <input type="text" name="symbol" required> <br/> <br/> <!--CSS this-->
+                <input type="text" name="symbol" autofocus required>
+                <a href="http://eoddata.com/symbols.aspx"target="_blank"> Extensive list of all symbols</a>
+                <br/> <br/> <!--CSS this-->
                 <label for="quantity">Number of Stocks:</label>
-                <input type="number" name="quantity" min="0"> <br/> <br/>
+                <input type="number" name="quantity" min="0">
+                <br/> <br/>
                 <input type="radio" name="action" value="watchlist" checked> Watchlist
                 <input type="radio" name="action" value="buy"> Buy
-                <input type="radio" name="action" value="sell"> Sell <br/> <br/>
-                <input type="Submit" value="Simulate">
+                <input type="radio" name="action" value="sell"> Sell
+                <br/> <br/>
+                <!--<input type="Submit" value="Simulate">-->
                 <input type="Submit" value="Go">
             </form>
         </div>
