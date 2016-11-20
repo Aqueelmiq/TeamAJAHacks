@@ -2,7 +2,10 @@
 <html>
     <head><title>Stock Game!</title></head>
     <body>
-        <p>Date: {{ date.isoformat() }} <button form="trade" formaction="/advance">Advance day</button></p>
+        <p>Date: {{ date.isoformat() }}
+        <form id="advance" action="/advance">
+            <input type="Submit" value="Advance Day">
+        </form></p>
         {% if stocks %}
             <p>
                 Stocks owned:
