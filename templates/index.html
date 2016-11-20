@@ -12,11 +12,17 @@
 
 <body>
     <div class="Nav">
-        <h1 id="header">WELCOME TO GENUS!</h1>
-        <h3 id ="tagline">The Strategic Stock Trading Game</h3>
-        <div id="abtbutton">
-        <button class="formbutton" onclick="about()"> About </button>
-        </div>
+        <table width="100%" border="0"><tbody>
+        <tr>
+            <th><h1 id="header">WELCOME TO GENUS!</h1></th>
+            <th><div id="abtbutton">
+                <button class="formbutton" onclick="about()"> About </button>
+            </div></th>
+        </tr>
+        <tr>
+            <th><h3 id ="tagline">The Strategic Stock Trading Game</h3></th>
+        </tr>
+        </tbody></table>
     </div>
 
     <div class="content">
@@ -26,10 +32,10 @@
         <div class="index_form">
         <form action="/start">
         <label class="formlabel" id="sdate" for="start_date">Start date:</label>
-        <input class="forminput" type="date" name="start_date" max="{{ yesterday }}" required>
+        <input class="forminput" type="date" name="start_date" max="{{ yesterday }}" value="1996-04-12" required>
         <br/><br/>
         <label class="formlabel" id="edate" for="end_date">End date:</label>
-        <input class="forminput" type="date" name="end_date" max="{{ yesterday }}" value="{{ yesterday }}"required>
+        <input class="forminput" type="date" name="end_date" max="{{ yesterday }}" value="{{ yesterday }}" required>
         <br/><br/>
         <label class="formlabel" id = "amt" for="money">Initial amount of money:</label>
         <input class="forminput" type="number" name="money" min="0" value="100000" required>
@@ -42,7 +48,7 @@
         <div class="index_form">
         <form action="/game">
         <label class="formlabel" id="gsdate" for="start_date">Start date:</label>
-        <input class="forminput" type="date" name="start_date" max="{{ yesterday }}" required>
+        <input class="forminput" type="date" name="start_date" max="{{ yesterday }}" value="1996-04-12" required>
         <br/><br/>
         <label class="formlabel" id="gedate" for="end_date">End date:</label>
         <input class="forminput" type="date" name="end_date" max="{{ yesterday }}" value="{{ yesterday }}"required>

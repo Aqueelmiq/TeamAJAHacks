@@ -12,8 +12,19 @@
     <body>
 
         <div class="Nav">
-            <h1 id="header">WELCOME TO GENUS!</h1>
-            <h3 id ="tagline">The Strategic Stock Trading Game</h3>
+            <table width="100%" border="0">
+            <tbody><tr>
+                <th>
+                <h1 id="header">WELCOME TO GENUS!</h1>
+                <h3 id ="tagline">The Strategic Stock Trading Game</h3>
+                </th>
+                <th>
+                <div>
+                    <form id="home" action="/">
+                        <input class="formbutton" type="Submit" value="Back to Home"/>
+                    </form>
+                </div></th>
+            </tr></tbody></table>
         </div>
 
         <div class="content">
@@ -41,15 +52,15 @@
             <hr>
 
         <div>
-            <h3>Date:</h3>
-            <p>{{ date.isoformat() }} {% if date >= end %} ALERT: THIS IS THE ENDING DATE {% endif %}</p>
+            <h3>Date: {{ date.isoformat() }} {% if date >= end %} ALERT: THIS IS THE ENDING DATE {% endif %}</h3>
             <form id="advance" action="/advance">
-                Advance:
+                <p> Advance:
                 <input class="formbutton" type="Submit" name="advance" value="Day">
                 <input class="formbutton" type="Submit" name="advance" value="Week">
                 <input class="formbutton" type="Submit" name="advance" value="Month">
                 <input class="formbutton" type="Submit" name="advance" value="Year">
                 <input class="formbutton" type="Submit" name="advance" value="Decade">
+                </p>
             </form>
         </div>
         <hr>
@@ -106,12 +117,6 @@
                 <br/> <br/>
                 <!--<input type="Submit" value="Simulate">-->
                 <input class="formbutton" type="Submit" value="Go">
-            </form>
-        </div>
-
-        <div>
-            <form id="home" action="/">
-                <input class="formbutton" type="Submit" value="Back to Home"/>
             </form>
         </div>
         </div>

@@ -68,6 +68,8 @@ def start():
     e_date = request.args['end_date'].split("-")
     date = datetime.date(int(s_date[0]),int(s_date[1]),int(s_date[2]))
     end = datetime.date(int(e_date[0]),int(e_date[1]),int(e_date[2]))
+    while( not is_trading_day(end)):
+        end -= datetime.timedelta(days=1)
     money = int(request.args['money'])
     return render_template('page.html', date = date, end=end, stock = stocks, watchlist= watchlist, stock_set=stock_set.values(), money=money)
 
