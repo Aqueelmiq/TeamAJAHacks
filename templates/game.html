@@ -5,6 +5,9 @@
     <link type="text/css" rel="stylesheet" href="../static/stylemain.css"/>
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../static/style.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
     <script src="https://use.typekit.net/hbg8vny.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
     <title>Genus</title>
@@ -18,6 +21,10 @@
 
         <div class="content">
 			<table width="100%" border="0">
+
+                <button class="start">
+                    Start Game
+                </button>
   <tbody>
     <tr>
       <th scope="col"><div>
@@ -128,6 +135,22 @@
             </form>
         </div>
         </div>
+
+    <script>
+
+        var game = 20;
+
+        $('.startgame').click(function(e) {
+            game = 20;
+            while(game > 0) {
+               $.get('/startgame', function() {
+                    game--;
+                    sleep(1000);
+                });
+            }
+        });
+
+    </script>
 
     </body>
 </html>
