@@ -77,8 +77,12 @@ def trade():
         s = Stock(symbol, quantity, date, float(q['Open']))
         sb = Stock_base(symbol, quantity, float(q['Open']))
         if request.args['action'] == 'watchlist':
-            s.img = graph_gen(symbol, date, end)
-            watchlist.append(s)
+            for w in watchlist:
+                if s.symbol == w.symbol:
+                    break
+            else: #not in watchlist
+                s.img = graph_gen(symbol, date)
+                watchlist.append(s)
         elif request.args['action'] == 'buy':
             money -= quantity*s.init_price
             if stock_set.get(symbol):
@@ -233,9 +237,9 @@ def earnings(stock):
     q = get_quotes(stock.symbol, date, end)
     open_price = q['Open']
 
-def graph_gen(symbol, start_date, end_date):
-    ending = start_date + datetime.timedelta(days=30)
-    df = pdr.DataReader(symbol, 'yahoo', start_date, ending)
+def graph_gen(symbol, current_date):
+    beginning = current_date - datetime.timedelta(days=30)
+    df = pdr.DataReader(symbol, 'yahoo', beginning, current_date)
     fig = FF.create_candlestick(df.Open, df.High, df.Low, df.Close, dates=df.index)
     return py.plot(fig, filename=symbol, validate=False)
     
