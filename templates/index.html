@@ -20,7 +20,8 @@
 
     <div class="content">
 
-        <form id="index_form" action="/start">
+        <div class="index_form">
+        <form action="/start">
 
         <label class="formlabel" id="sdate" for="start_date">Start date:</label>
         <input class="forminput" type="date" name="start_date" max="{{ yesterday }}" required>
@@ -32,9 +33,30 @@
         <input class="forminput" type="number" name="money" min="0" value="100000" required>
         <br/><br/>
         <input class="formbutton" id = "Startsim" type="Submit" name="mode" value="Start!">
-        <input class="formbutton" id = "Challenge" type="Submit" name="mode" value="Challenge Mode">
+        <!--<input class="formbutton" id = "Challenge" type="Submit" name="mode" value="Challenge Mode">-->
+        </form>
+        </div>
+        <div class="index_form">
+        <form action="/game">
 
-    </form>
+        <label class="formlabel" id="gsdate" for="start_date">Start date:</label>
+        <input class="forminput" type="date" name="start_date" max="{{ yesterday }}" required>
+        <br/><br/>
+        <label class="formlabel" id="gedate" for="end_date">End date:</label>
+        <input class="forminput" type="date" name="end_date" max="{{ yesterday }}" value="{{ yesterday }}"required>
+        <br/><br/>
+        <label class="formlabel" id = "gamt" for="money">Initial amount of money:</label>
+        <input class="forminput" type="number" name="money" min="0" value="100000" required>
+        <br/><br/>
+        <label class="formlabel" id = "gdiff" for="diff">Diff:</label>
+        <input class="forminput" type="radio" name="diff" value="Hard" checked>
+        <input class="forminput" type="radio" name="diff" value="Medium">
+        <input class="forminput" type="radio" name="diff" value="Easy">
+        <br/><br/>
+        <!--<input class="formbutton" id = "Startsim" type="Submit" name="mode" value="Start!">-->
+        <input class="formbutton" id = "Challenge" type="Submit" name="mode" value="Challenge Mode">
+        </form>
+        </div>
 
     </div>
 

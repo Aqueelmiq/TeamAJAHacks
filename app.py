@@ -247,7 +247,7 @@ def graph_gen(symbol, current_date):
     beginning = current_date - datetime.timedelta(days=30)
     df = pdr.DataReader(symbol, 'yahoo', beginning, current_date)
     fig = FF.create_candlestick(df.Open, df.High, df.Low, df.Close, dates=df.index)
-    return py.plot(fig, filename=symbol, validate=False)
+    return py.plot(fig, filename=symbol, validate=False,auto_open=False)
     
 if __name__ == '__main__':
     app.run()

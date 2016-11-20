@@ -77,15 +77,14 @@ h3 {
 
 }
 
-#index_form {
+.index_form {
 
-    display: block;
+    display: inline-block;
     position: relative;
     top: 100px;
     left: 50px;
     margin-left: auto;
     margin-right: auto;
-
 }
 
 .forminput {
