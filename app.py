@@ -41,7 +41,12 @@ def trade():
 
 
 def is_trading_day(date):
-    return get_quotes('YHOO', date, end) is not None
+    try:
+        get_quotes('YHOO', date, end) is not None
+        return True
+    except:
+        return False
+
 
 
 def get_quotes(symbol, start_date, end_date):
@@ -51,10 +56,17 @@ def get_quotes(symbol, start_date, end_date):
 
 @app.route('/advance')
 def next_day():
+    global  date
+    #while not is_trading_day(date):
+
     date += datetime.timedelta(days= 1)
+    while not is_trading_day(date):
+        date += datetime.timedelta(days=1)
+    print(is_trading_day(date))
     return render_template('page.html', date=date, stocks=stocks)
 
 def refresh_stocks():
+
     pass
 
 
