@@ -63,7 +63,7 @@
                         Symbol: {{ s.symbol }},
                         Quantity: {{ s.quantity }},
                         Price: {{ "${:.2f}".format(s.init_price) }},
-                        Purchase Date: {{ "${:.2f}".format(s.purch_date) }}
+                        Purchase Date: {{ s.purch_date }}
                     </li>
                 {% endfor %}
                 </ol>

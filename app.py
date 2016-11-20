@@ -66,7 +66,7 @@ def start():
 @app.route('/stocks')
 def trade():
     global money
-    symbol = request.args['symbol']
+    symbol = request.args['symbol'].upper()
     quant = request.args['quantity']
     quantity = int(quant) if quant else 0
     q = get_quotes(symbol, date, end)
