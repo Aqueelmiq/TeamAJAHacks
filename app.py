@@ -33,7 +33,11 @@ def index():
 def trade():
     symbol = request.args['symbol']
     quantity = int(request.args['quantity'])
-    if request.args['action'] == 'buy':
+    if request.args['action'] == 'watchlist':
+        if is_symbol(symbol):
+            watchlist.append(symbol)
+        #might want to tell the user that that is not a symbol
+    elif request.args['action'] == 'buy':
         q = get_quotes(symbol, date, end)
         print(is_stock(symbol))
         if len(q) != 0:
