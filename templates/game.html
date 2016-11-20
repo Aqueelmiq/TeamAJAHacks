@@ -143,15 +143,18 @@
 
     <script>
 
+
         function rungame() {
 
             var game = 20;
-            while(game > 0) {
-               $.get('/startgame', function() {
+            recur(game);
+        }
+
+        function recur(game) {
+            if(game > 0) {
+                $.get('/startgame', function() {
                     game--;
-                    setTimeout(function(){
-                        alert('hello');
-                    }, 3000);
+                    setTimeout(recur(game), 3000);
                 });
             }
         }
