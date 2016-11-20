@@ -1,11 +1,13 @@
 from flask import Flask, request, render_template
-from random import choice
-import os
-import urllib.request, urllib.parse, urllib.error, json
+import plotly.plotly as py
+from plotly.tools import FigureFactory as FF
+from plotly.graph_objs import *
 import datetime
 import pandas_datareader.data as pdr
 
 app = Flask(__name__)
+
+py.sign_in('AqueelMiqdad', 'vzmcif6vo5')
 
 #Main Stocks library
 stocks = []
@@ -27,6 +29,7 @@ class Stock:
         self.last_price = init_price
         self.last_earning = 0
         self.change = 0
+        self.img = ''
 
 
 class Stock_base:
@@ -71,6 +74,7 @@ def trade():
         s = Stock(symbol, quantity, date, float(q['Open']))
         sb = Stock_base(symbol, quantity, float(q['Open']))
         if request.args['action'] == 'watchlist':
+            s.img = graph_gen(symbol, date, end)
             watchlist.append(s)
         elif request.args['action'] == 'buy':
             money -= quantity*s.init_price
@@ -123,7 +127,6 @@ def earning():
             diff = q['Open'] - y.last_price
             y.last_price = q['Open']
             y.earnings += diff*y.quantity
-            money += diff*y.quantity
 
 def get_quotes(symbol, start_date, end_date):
     try:
@@ -167,8 +170,11 @@ def earnings(stock):
     q = get_quotes(stock.symbol, date, end)
     open_price = q['Open']
 
-def graph_gen(start_date, end_date):
-    hello = 0
+def graph_gen(symbol, start_date, end_date):
+    ending = start_date + datetime.timedelta(days=30)
+    df = pdr.DataReader(symbol, 'yahoo', start_date, ending)
+    fig = FF.create_candlestick(df.Open, df.High, df.Low, df.Close, dates=df.index)
+    return py.plot(fig, filename=symbol, validate=False)
     
 if __name__ == '__main__':
     app.run()
