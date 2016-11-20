@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Stock Game!</title>
+    <title>Genus</title>
 </head>
     <body>
         <div>
@@ -10,24 +10,23 @@
         </div>
         <div>
             {% if watchlist %}
-                <p>
-                    Watch List:
-                    <ol>
-                    {% for s in watchlist %}
-                        <li>
-                            Symbol: {{ s.symbol }},
-                            Price: {{ s.last_price }},
-                            Change: {{ s.change }},
-                            Graph: Coming soon!
-                        </li>
-                    {% endfor %}
-                    </ol>
-                </p>
+                <h3>Watch List:</h3>
+                <ol>
+                {% for s in watchlist %}
+                    <li>
+                        Symbol: {{ s.symbol }},
+                        Price: {{ s.last_price }},
+                        Change: {{ s.change }},
+                        Graph: Coming soon!
+                    </li>
+                {% endfor %}
+                </ol>
             {% endif %}
         </div>
         <hr>
         <div>
-            <p>Date: {{ date.isoformat() }} {% if date >= end %} ALERT: THIS IS THE ENDING DATE {% endif %}
+            <h3>Date:</h3>
+            <p>{{ date.isoformat() }} {% if date >= end %} ALERT: THIS IS THE ENDING DATE {% endif %}</p>
             <form id="advance" action="/advance">
                 Advance:
                 <input type="Submit" name="advance" value="Day">
@@ -35,58 +34,54 @@
                 <input type="Submit" name="advance" value="Month">
                 <input type="Submit" name="advance" value="Year">
                 <input type="Submit" name="advance" value="Decade">
-            </form></p>
+            </form>
         </div>
+        <hr>
         <div>
+            <h3>Stocks owned:</h3>
             {% if stock_set %}
-                <p>
-                    Stocks owned:
-                    <ol>
-                    {% for s in stock_set %}
-                        <li>
-                            Symbol: {{ s.symbol }},
-                            Quantity: {{ s.quantity }},
-                            Price: {{ s.last_price }},
-                            Earnings to date: {{ s.earnings }}
-                        </li>
-                    {% endfor %}
-                    </ol>
-                </p>
+                <ol>
+                {% for s in stock_set %}
+                    <li>
+                        Symbol: {{ s.symbol }},
+                        Quantity: {{ s.quantity }},
+                        Price: {{ s.last_price }},
+                        Earnings to date: {{ s.earnings }}
+                    </li>
+                {% endfor %}
+                </ol>
             {% endif %}
         </div>
         <hr>
         <div>
+            <h3>Transactions:</h3>
             {% if stocks %}
-                <p>
-                    Transactions:
-                    <ol>
-                    {% for s in stocks %}
-                        <li>
-                            Symbol: {{ s.symbol }},
-                            Quantity: {{ s.quantity }},
-                            Price: {{ s.init_price }},
-                            Purchase Date: {{ s.purch_date }}
-                        </li>
-                    {% endfor %}
-                    </ol>
-                </p>
+                <ol>
+                {% for s in stocks %}
+                    <li>
+                        Symbol: {{ s.symbol }},
+                        Quantity: {{ s.quantity }},
+                        Price: {{ s.init_price }},
+                        Purchase Date: {{ s.purch_date }}
+                    </li>
+                {% endfor %}
+                </ol>
             {% endif %}
         </div>
         <hr>
         <div>
-            <p>
-                <form id="stocks" action="/stocks">
-                    <label for="symbol">Symbol:</label>
-                    <input type="text" name="symbol" required> <br/> <br/> <!--CSS this-->
-                    <label for="quantity">Number of Stocks:</label>
-                    <input type="number" name="quantity" min="0"> <br/> <br/>
-                    <input type="radio" name="action" value="watchlist" checked> Watchlist
-                    <input type="radio" name="action" value="buy"> Buy
-                    <input type="radio" name="action" value="sell"> Sell <br/> <br/>
-                    <input type="Submit" value="Simulate">
-                    <input type="Submit" value="Go">
-                </form>
-            </p>
+            <h3>Control Panel</h3>
+            <form id="stocks" action="/stocks">
+                <label for="symbol">Symbol:</label>
+                <input type="text" name="symbol" required> <br/> <br/> <!--CSS this-->
+                <label for="quantity">Number of Stocks:</label>
+                <input type="number" name="quantity" min="0"> <br/> <br/>
+                <input type="radio" name="action" value="watchlist" checked> Watchlist
+                <input type="radio" name="action" value="buy"> Buy
+                <input type="radio" name="action" value="sell"> Sell <br/> <br/>
+                <input type="Submit" value="Simulate">
+                <input type="Submit" value="Go">
+            </form>
         </div>
     </body>
 </html>

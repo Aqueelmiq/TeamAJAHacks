@@ -146,14 +146,11 @@ def advance():
     elif time_amount == 'Week':
         next_date += datetime.timedelta(weeks= 1)
     elif time_amount == 'Month':
-        if next_date.month<12:
-            next_date = next_date.replace(month=next_date.month+1)
-        else:
-            next_date = next_date.replace(year=next_date.year+1, month=1)
+        next_date += datetime.timedelta(days= 30)
     elif time_amount == 'Year':
-        next_date = next_date.replace(year=next_date.year + 1)
+        next_date += datetime.timedelta(days= 365)
     elif time_amount == 'Decade':
-        next_date = next_date.replace(year=next_date.year + 10)
+        next_date += datetime.timedelta(days= 3650)
 
     if next_date <= end:
         date = next_date
