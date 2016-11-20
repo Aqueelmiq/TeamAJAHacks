@@ -43,6 +43,8 @@ def trade():
         if len(q) != 0:
             s = Stock(symbol, quantity, date, float(q['Open']))
             stocks.append(s)
+    #elif request.args['action'] == 'sell':
+        #stocks.remove(symbol) HOW ARE WE GONNA KNOW WHICH ONE TO REMOVE?
     return render_template('page.html', date=date, stocks=stocks)
 
 
